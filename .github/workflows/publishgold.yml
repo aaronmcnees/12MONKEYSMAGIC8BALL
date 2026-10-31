@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - '12MONKEYSMAGIC8BALL-gold.zip'
+      - 'GITHUBPUBLISH.zip'
 
 permissions:
   contents: write
@@ -18,33 +18,27 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Ignore cleanup-triggered rerun
-        id: gold
+      - name: Verify publish bundle
         shell: bash
         run: |
-          if [[ -f 12MONKEYSMAGIC8BALL-gold.zip ]]; then
-            echo 'present=true' >> "$GITHUB_OUTPUT"
-          else
-            echo 'present=false' >> "$GITHUB_OUTPUT"
-          fi
+          test -f GITHUBPUBLISH.zip
+          echo 'd43e1a4ce5d2874a882c9e0e12e5a537fba6d02d4bbbc9dd55f25cb77b6eca81  GITHUBPUBLISH.zip' | sha256sum -c -
+          rm -rf /tmp/magic8publish
+          mkdir -p /tmp/magic8publish
+          unzip -q GITHUBPUBLISH.zip -d /tmp/magic8publish
+          echo '03be7e16e1e7ba3a4f514ae187c5df702c40964353a3cde6a484349a89142c25  /tmp/magic8publish/12MONKEYSMAGIC8BALL-gold.zip' | sha256sum -c -
 
-      - name: Verify GOLD archive
-        if: steps.gold.outputs.present == 'true'
+      - name: Install exact GOLD contents and screenshots
         shell: bash
         run: |
-          echo '03be7e16e1e7ba3a4f514ae187c5df702c40964353a3cde6a484349a89142c25  12MONKEYSMAGIC8BALL-gold.zip' | sha256sum -c -
-          cp 12MONKEYSMAGIC8BALL-gold.zip /tmp/12MONKEYSMAGIC8BALL-gold.zip
-
-      - name: Install exact GOLD contents
-        if: steps.gold.outputs.present == 'true'
-        shell: bash
-        run: |
-          unzip -o 12MONKEYSMAGIC8BALL-gold.zip -d .
+          unzip -o /tmp/magic8publish/12MONKEYSMAGIC8BALL-gold.zip -d .
           chmod +x RUN.sh
-          rm 12MONKEYSMAGIC8BALL-gold.zip
+          mkdir -p screenshots
+          cp -a /tmp/magic8publish/screenshots/. screenshots/
+          rm GITHUBPUBLISH.zip
+          rm -f .github/workflows/publishgold.yml
 
-      - name: Commit GOLD build to main
-        if: steps.gold.outputs.present == 'true'
+      - name: Commit final GOLD repository
         shell: bash
         run: |
           git config user.name 'AETHER CAT'
@@ -56,15 +50,15 @@ jobs:
           fi
 
       - name: Publish GitHub release 13.31
-        if: steps.gold.outputs.present == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
+          GOLD='/tmp/magic8publish/12MONKEYSMAGIC8BALL-gold.zip'
           if gh release view 13.31 >/dev/null 2>&1; then
-            gh release upload 13.31 /tmp/12MONKEYSMAGIC8BALL-gold.zip --clobber
+            gh release upload 13.31 "$GOLD" /tmp/magic8publish/screenshots/*.png --clobber
           else
-            gh release create 13.31 /tmp/12MONKEYSMAGIC8BALL-gold.zip \
+            gh release create 13.31 "$GOLD" /tmp/magic8publish/screenshots/*.png \
               --target main \
               --title '12 MONKEYS MAGIC 8-BALL 13.31' \
               --notes 'GOLD release of 12 MONKEYS MAGIC 8-BALL WORDLIST DELIMINATOR · VERSION 13.31 · AETHERCAT / COYOTELABS · 2026'
