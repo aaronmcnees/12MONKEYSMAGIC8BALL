@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>12MONKEYS MAGIC8BALL</title>
+<link rel="stylesheet" href="/MAGIC8BALL.css">
+</head>
+<body>
+<div class="shell">
+  <header class="hero">
+    <img class="titleart" src="/title.png" alt="12MONKEYS MAGIC8BALL WORDLIST DELIMINATOR">
+    <img class="apeart" src="/ape.png" alt="">
+    <div class="heropills" aria-label="App guarantees">
+      <span class="heropill">LOCAL ONLY</span>
+      <span class="heropill">STREAMING I/O</span>
+      <span class="heropill">NO OVERWRITE</span>
+    </div>
+    <div class="herowords" aria-hidden="true"><span>FILTER</span><span>TRIM</span><span>REFINE</span><span>SMALLER</span><span>STRONGER</span><i></i></div>
+  </header>
+
+  <main class="workarea">
+    <section class="leftstack">
+      <article class="card sourcecard">
+        <div class="cardhead">
+          <div class="squareicon fileicon" aria-hidden="true"><span></span></div>
+          <div><h2>1. SOURCE WORDLIST</h2><p>Select the wordlist to filter (large files are supported).</p></div>
+        </div>
+        <div class="sourcecontrols">
+          <input id="source" class="textbox" type="text" readonly placeholder="/path/to/wordlist.txt">
+          <button id="browse" class="button browsebutton"><span class="foldermark" aria-hidden="true"></span><b>Browse…</b></button>
+        </div>
+      </article>
+
+      <article class="card rangecard">
+        <div class="cardhead">
+          <div class="squareicon slidersicon" aria-hidden="true"><span></span></div>
+          <div><h2>2. KEEP LENGTH</h2><p>Keep only words within the specified length range.</p></div>
+        </div>
+        <div class="rangecontrols">
+          <button id="preset812" class="preset active"><strong>8 – 12</strong><small>COMMON RANGE</small></button>
+          <button id="preset816" class="preset"><strong>8 – 16</strong><small>EXTENDED RANGE</small></button>
+          <div class="divider"></div>
+          <div class="customrange">
+            <h3>Custom Range</h3>
+            <div class="minmax">
+              <label>Minimum<input id="minimum" type="number" min="1" max="255" value="8"></label>
+              <label>Maximum<input id="maximum" type="number" min="1" max="255" value="12"></label>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card outputcard">
+        <div class="cardhead compacthead">
+          <div class="squareicon newfileicon" aria-hidden="true"><span></span></div>
+          <div><h2>3. NEW WORDLIST</h2><p>Output filename (will be saved in the same directory).</p></div>
+        </div>
+        <input id="output" class="textbox outputname" type="text" placeholder="rockyou8to12.txt">
+        <div class="actionrow">
+          <button id="crunch" class="button crunchbutton"><span class="playmark" aria-hidden="true"></span><b>CRUNCH WORDLIST</b></button>
+          <button id="stop" class="button stopbutton" disabled><span class="stopmark" aria-hidden="true"></span><b>HARD STOP</b></button>
+        </div>
+      </article>
+    </section>
+
+    <section class="card statuscard">
+      <div class="statushead">
+        <div class="statusleft">
+          <div id="spinner" class="spinner idle" aria-hidden="true"><span></span></div>
+          <div class="statuscopy"><h1 id="state">IDLE</h1><p id="message">Choose a wordlist.</p></div>
+        </div>
+        <div id="pct" class="pctbox">0.0%</div>
+      </div>
+      <div class="progress"><div id="progressbar"></div></div>
+
+      <div class="statgrid">
+        <div class="stat"><img src="/icon1.png" alt=""><div><span>ENTRIES SCANNED</span><strong id="seen">0</strong></div></div>
+        <div class="stat"><img src="/icon2.png" alt=""><div><span>ENTRIES KEPT</span><strong id="kept">0</strong></div></div>
+        <div class="stat"><img src="/icon3.png" alt=""><div><span>ENTRIES CUT</span><strong id="cut">0</strong></div></div>
+        <div class="stat"><img src="/icon4.png" alt=""><div><span>REDUCTION</span><strong id="reduction">0.0%</strong></div></div>
+        <div class="stat"><img src="/icon5.png" alt=""><div><span>PROCESSED</span><strong id="processed">0 B</strong></div></div>
+        <div class="stat"><img src="/icon6.png" alt=""><div><span>SPEED</span><strong id="speed">0 lines/s</strong></div></div>
+        <div class="stat"><img src="/icon7.png" alt=""><div><span>ELAPSED</span><strong id="elapsed">0.0 s</strong></div></div>
+        <div class="stat"><img src="/icon8.png" alt=""><div><span>ETA</span><strong id="eta">—</strong></div></div>
+      </div>
+
+      <div class="outputpathbox">
+        <div class="outputlabel"><span class="tinyfile" aria-hidden="true"></span>OUTPUT PATH</div>
+        <div class="pathrow"><div id="outputpath" class="pathvalue">Output path will appear here.</div><button id="openfolder" class="button openbutton"><span class="foldermark" aria-hidden="true"></span><b>Open Folder</b></button></div>
+      </div>
+
+      <div class="notice"><span class="shieldmark" aria-hidden="true">✓</span><div><strong>Existing files are never overwritten.</strong><span>If the output file already exists, the run is refused until you change the name.</span></div></div>
+    </section>
+  </main>
+</div>
+<script src="/MAGIC8BALL.js"></script>
+  <div style="text-align:center; margin-top:80px; padding-bottom:18px;">12 MONKEYS MAGIC8BALL WORDLIST DELIMINATOR · VERSION 13.31 · AETHERCAT / COYOTELABS · 2026</div>
+</body>
+</html>
