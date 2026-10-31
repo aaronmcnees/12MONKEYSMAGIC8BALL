@@ -24,7 +24,11 @@ This is useful with very large collections — 27GB, 65GB, 98GB, or larger — w
 
 Rather than trying to make Hashcat rules perform the filtering, MAGIC 8-BALL does the filtering beforehand and gives Hashcat a smaller wordlist to work with.
 
-That was the whole reason for making it.
+FILTER
+TRIM
+REFINE
+SMALLER
+STRONGER
 
 **[Download 12 MONKEYS MAGIC 8-BALL 13.31 GOLD ZIP](https://github.com/aaronmcnees/12MONKEYSMAGIC8BALL/releases/download/13.31/12MONKEYSMAGIC8BALL-gold.zip)** · [Release notes](https://github.com/aaronmcnees/12MONKEYSMAGIC8BALL/releases/tag/13.31)
 
