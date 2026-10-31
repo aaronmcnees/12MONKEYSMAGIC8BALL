@@ -6,9 +6,9 @@
 
 ![12 MONKEYS MAGIC 8-BALL interface](screenshots/GDFG.png)
 
-MAGIC 8-BALL is a local Linux wordlist delimiter for very large password lists.
+12 MONKEYS MAGIC 8-BALL is a local Linux wordlist delimiter for very large password lists.
 
-For WPA/WPA2 auditing, MAGIC 8-BALL takes an existing wordlist and creates a smaller working list containing only candidates within the selected passphrase-length range.
+For WPA/WPA2 auditing, 12 MONKEYS MAGIC 8-BALL takes an existing wordlist and creates a smaller working list containing only candidates within the selected passphrase-length range.
 
 Anything shorter or longer is discarded from the new list.
 
@@ -30,7 +30,7 @@ That was the whole reason for making it.
 
 ## HOW IT WORKS
 
-MAGIC 8-BALL reads the source wordlist sequentially instead of loading the entire file into memory.
+12 MONKEYS MAGIC 8-BALL reads the source wordlist sequentially instead of loading the entire file into memory.
 
 For each entry:
 
@@ -44,7 +44,7 @@ The output can be used directly with Hashcat or any other tool that accepts ordi
 
 ## FILE SAFETY
 
-MAGIC 8-BALL does not modify the source wordlist.
+12 MONKEYS MAGIC 8-BALL does not modify the source wordlist.
 
 It also does not overwrite an existing output file. If the requested filename already exists, the run is refused.
 
