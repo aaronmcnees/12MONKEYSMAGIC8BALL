@@ -1,0 +1,71 @@
+name: Publish GOLD 13.31
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '12MONKEYSMAGIC8BALL-gold.zip'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Ignore cleanup-triggered rerun
+        id: gold
+        shell: bash
+        run: |
+          if [[ -f 12MONKEYSMAGIC8BALL-gold.zip ]]; then
+            echo 'present=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'present=false' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify GOLD archive
+        if: steps.gold.outputs.present == 'true'
+        shell: bash
+        run: |
+          echo '03be7e16e1e7ba3a4f514ae187c5df702c40964353a3cde6a484349a89142c25  12MONKEYSMAGIC8BALL-gold.zip' | sha256sum -c -
+          cp 12MONKEYSMAGIC8BALL-gold.zip /tmp/12MONKEYSMAGIC8BALL-gold.zip
+
+      - name: Install exact GOLD contents
+        if: steps.gold.outputs.present == 'true'
+        shell: bash
+        run: |
+          unzip -o 12MONKEYSMAGIC8BALL-gold.zip -d .
+          chmod +x RUN.sh
+          rm 12MONKEYSMAGIC8BALL-gold.zip
+
+      - name: Commit GOLD build to main
+        if: steps.gold.outputs.present == 'true'
+        shell: bash
+        run: |
+          git config user.name 'AETHER CAT'
+          git config user.email '48531995+aaronmcnees@users.noreply.github.com'
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish 12 MONKEYS MAGIC 8-BALL GOLD 13.31'
+            git push origin main
+          fi
+
+      - name: Publish GitHub release 13.31
+        if: steps.gold.outputs.present == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          if gh release view 13.31 >/dev/null 2>&1; then
+            gh release upload 13.31 /tmp/12MONKEYSMAGIC8BALL-gold.zip --clobber
+          else
+            gh release create 13.31 /tmp/12MONKEYSMAGIC8BALL-gold.zip \
+              --target main \
+              --title '12 MONKEYS MAGIC 8-BALL 13.31' \
+              --notes 'GOLD release of 12 MONKEYS MAGIC 8-BALL WORDLIST DELIMINATOR · VERSION 13.31 · AETHERCAT / COYOTELABS · 2026'
+          fi
