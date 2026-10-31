@@ -28,7 +28,7 @@ FILTER  ·
 TRIM  · 
 REFINE  · 
 SMALLER  · 
-STRONGER  · 
+STRONGER  
 
 **[Download 12 MONKEYS MAGIC 8-BALL 13.31 GOLD ZIP](https://github.com/aaronmcnees/12MONKEYSMAGIC8BALL/releases/download/13.31/12MONKEYSMAGIC8BALL-gold.zip)** · [Release notes](https://github.com/aaronmcnees/12MONKEYSMAGIC8BALL/releases/tag/13.31)
 
